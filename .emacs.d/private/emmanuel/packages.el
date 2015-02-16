@@ -14,19 +14,12 @@
   '(
     ;; package emmanuels go here
     color-theme-sanityinc-tomorrow
-    qml-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
 (defvar emmanuel-excluded-packages '()
   "List of packages to exclude.")
-
-
-(defun emmanuel/init-qml-mode ()
-    (autoload 'qml-mode "qml-mode" "Editing Qt Declarative." t)
-  	(add-to-list 'auto-mode-alist '("\\.qml$" . qml-mode))
-  )
 
 ;; For each package, define a function emmanuel/init-<package-emmanuel>
 ;;

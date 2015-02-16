@@ -11,7 +11,7 @@
  dotspacemacs-configuration-layer-path '()
  ;; List of configuration layers to load. If it is the symbol `all' instead
  ;; of a list then all discovered layers will be installed.
- dotspacemacs-configuration-layers '(haskell emmanuel)
+ dotspacemacs-configuration-layers '(haskell javascript emmanuel)
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
  ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -105,6 +105,7 @@
 This function is called at the very end of Spacemacs initialization."
   (require 'auto-complete)
   (add-hook 'after-change-major-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
+  (add-to-list 'auto-mode-alist '("\\.qml\\'" . js-mode))
 )
 
 ;; Custom variables
