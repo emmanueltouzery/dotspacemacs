@@ -106,6 +106,7 @@ This function is called at the very end of Spacemacs initialization."
   (require 'auto-complete)
   (add-hook 'after-change-major-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
   (add-to-list 'auto-mode-alist '("\\.qml\\'" . js-mode))
+  (define-key evil-normal-state-map (kbd "<f6>") 'evil-search-highlight-persist-remove-all)
 )
 
 ;; Custom variables
