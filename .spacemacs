@@ -128,6 +128,8 @@ This function is called at the very end of Spacemacs initialization."
     (eshell)
     )
   (define-key evil-normal-state-map (kbd "<SPC>os") 'emmanuel/open-shell)
+
+  (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
 )
 
 ;; Custom variables
