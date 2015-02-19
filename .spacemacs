@@ -110,7 +110,7 @@ This function is called at the very end of Spacemacs initialization."
   (define-key evil-normal-state-map (kbd "<f5>") 'toggle-truncate-lines)
 
   ;; http://stackoverflow.com/a/9414763/516188
-  (defun prelude-copy-file-name-to-clipboard ()
+  (defun emmanuel/prelude-copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
@@ -119,7 +119,15 @@ This function is called at the very end of Spacemacs initialization."
     (when filename
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
-  (define-key evil-normal-state-map (kbd "<SPC>oc") 'prelude-copy-file-name-to-clipboard)
+  (define-key evil-normal-state-map (kbd "<SPC>oc") 'emmanuel/prelude-copy-file-name-to-clipboard)
+
+  (defun emmanuel/open-shell ()
+  "Split the window and open a shell in the new split"
+    (interactive)
+    (split-window-below-and-focus)
+    (eshell)
+    )
+  (define-key evil-normal-state-map (kbd "<SPC>os") 'emmanuel/open-shell)
 )
 
 ;; Custom variables
