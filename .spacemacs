@@ -108,6 +108,18 @@ This function is called at the very end of Spacemacs initialization."
   (add-to-list 'auto-mode-alist '("\\.qml\\'" . js-mode))
   (define-key evil-normal-state-map (kbd "<f6>") 'evil-search-highlight-persist-remove-all)
   (define-key evil-normal-state-map (kbd "<f5>") 'toggle-truncate-lines)
+
+  ;; http://stackoverflow.com/a/9414763/516188
+  (defun prelude-copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+  (define-key evil-normal-state-map (kbd "<SPC>oc") 'prelude-copy-file-name-to-clipboard)
 )
 
 ;; Custom variables
