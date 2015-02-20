@@ -131,6 +131,10 @@ This function is called at the very end of Spacemacs initialization."
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
 
+  (require 'evil-numbers)
+  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+
   (setq evil-want-fine-undo nil)
 
   ;; Obliterate trailing whitespaces before saving
