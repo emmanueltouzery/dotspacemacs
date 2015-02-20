@@ -130,6 +130,8 @@ This function is called at the very end of Spacemacs initialization."
   (define-key evil-normal-state-map (kbd "<SPC>os") 'emmanuel/open-shell)
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
+
+  (setq evil-want-fine-undo nil)
 )
 
 ;; Custom variables
