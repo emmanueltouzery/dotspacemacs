@@ -131,9 +131,10 @@ This function is called at the very end of Spacemacs initialization."
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
 
+  ; can't override C-x if only because of C-x b to list buffers.
   (require 'evil-numbers)
-  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+  (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
 
   (setq evil-want-fine-undo nil)
 
@@ -146,5 +147,3 @@ This function is called at the very end of Spacemacs initialization."
 
 ;; Do not write anything in this section. This is where Emacs will
 ;; auto-generate custom variable definitions.
-
-
