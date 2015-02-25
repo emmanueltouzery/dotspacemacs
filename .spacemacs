@@ -130,6 +130,7 @@ This function is called at the very end of Spacemacs initialization."
   (define-key evil-normal-state-map (kbd "<SPC>os") 'emmanuel/open-shell)
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
+  (define-key evil-normal-state-map (kbd "<SPC>ou") 'browse-url)
 
   ; can't override C-x if only because of C-x b to list buffers.
   (require 'evil-numbers)
