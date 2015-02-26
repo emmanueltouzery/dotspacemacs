@@ -131,8 +131,21 @@ This function is called at the very end of Spacemacs initialization."
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
   (define-key evil-normal-state-map (kbd "<SPC>ou") 'browse-url)
-  (define-key evil-normal-state-map (kbd "<SPC>og") 'keep-lines)
-  (define-key evil-normal-state-map (kbd "<SPC>ov") 'flush-lines)
+
+  (defun emmanuel/keep-lines-ex (txt)
+    "Same as keep-lines but operate on the whole buffer,
+     not only after the cursor."
+    (interactive "sEnter the text to grep for: ")
+    (keep-lines txt (point-min) (point-max))
+    )
+  (define-key evil-normal-state-map (kbd "<SPC>og") 'emmanuel/keep-lines-ex)
+  (defun emmanuel/flush-lines-ex (txt)
+    "Same as flush-lines but operate on the whole buffer,
+     not only after the cursor."
+    (interactive "sEnter the text to grep for: ")
+    (flush-lines txt (point-min) (point-max))
+    )
+  (define-key evil-normal-state-map (kbd "<SPC>ov") 'emmanuel/flush-lines-ex)
 
   ; can't override C-x if only because of C-x b to list buffers.
   (require 'evil-numbers)
