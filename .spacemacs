@@ -159,6 +159,18 @@ layers configuration."
 
   ;; Obliterate trailing whitespaces before saving
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+  ;; display tabs with a dark gray "."
+  ;; then the tab itself.
+  (standard-display-ascii ?\t ".\t")
+  (defface extra-whitespace-face
+    '((t (:foreground "dim gray")))
+    "Used for tabs and such.")
+  (defvar my-extra-keywords
+    '(("\t" . 'extra-whitespace-face)))
+  (add-hook 'prog-mode-hook
+            (lambda () (font-lock-add-keywords nil my-extra-keywords)))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
