@@ -168,7 +168,7 @@ layers configuration."
     "Used for tabs and such.")
   (defvar my-extra-keywords
     '(("\t" . 'extra-whitespace-face)))
-  (add-hook 'prog-mode-hook
+  (add-hook 'font-lock-mode-hook
             (lambda () (font-lock-add-keywords nil my-extra-keywords)))
 
   )
