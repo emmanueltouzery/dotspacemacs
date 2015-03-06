@@ -108,6 +108,7 @@ layers configuration."
   (require 'auto-complete)
   (add-hook 'after-change-major-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
   (add-to-list 'auto-mode-alist '("\\.qml\\'" . js-mode))
+  (add-to-list 'auto-mode-alist '("\\.csv\\'" . text-mode))
   (define-key evil-normal-state-map (kbd "<f6>") 'evil-search-highlight-persist-remove-all)
   (define-key evil-normal-state-map (kbd "<f5>") 'toggle-truncate-lines)
 
@@ -171,6 +172,10 @@ layers configuration."
   (add-hook 'font-lock-mode-hook
             (lambda () (font-lock-add-keywords nil my-extra-keywords)))
 
+  ;; insert real tabs in text-mode
+  ;; (for instance editing CSV files)
+  ;; http://vserver1.cscs.lsa.umich.edu/~rlr/Misc/emacs_tabs.htm
+  (define-key text-mode-map (kbd "TAB") 'self-insert-command)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
