@@ -109,8 +109,9 @@ layers configuration."
   (add-hook 'after-change-major-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
   (add-to-list 'auto-mode-alist '("\\.qml\\'" . js-mode))
   (add-to-list 'auto-mode-alist '("\\.csv\\'" . text-mode))
-  (define-key evil-normal-state-map (kbd "<f6>") 'evil-search-highlight-persist-remove-all)
-  (define-key evil-normal-state-map (kbd "<f5>") 'toggle-truncate-lines)
+  (bind-key (kbd "<f6>") 'evil-search-highlight-persist-remove-all)
+  (bind-key (kbd "<f5>") 'toggle-truncate-lines)
+  (bind-key (kbd "C-SPC") 'helm-for-files)
 
   ;; http://stackoverflow.com/a/9414763/516188
   (defun emmanuel/prelude-copy-file-name-to-clipboard ()
@@ -163,6 +164,7 @@ layers configuration."
 
   ;; display tabs with a dark gray "."
   ;; then the tab itself.
+  ;; http://www.emacswiki.org/emacs/ShowWhiteSpace
   (standard-display-ascii ?\t ".\t")
   (defface extra-whitespace-face
     '((t (:foreground "dim gray")))
