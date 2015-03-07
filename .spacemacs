@@ -111,7 +111,7 @@ layers configuration."
   (add-to-list 'auto-mode-alist '("\\.csv\\'" . text-mode))
   (bind-key (kbd "<f6>") 'evil-search-highlight-persist-remove-all)
   (bind-key (kbd "<f5>") 'toggle-truncate-lines)
-  (bind-key (kbd "C-SPC") 'helm-for-files)
+  (bind-key (kbd "C-SPC") 'helm-multi-files)
 
   ;; http://stackoverflow.com/a/9414763/516188
   (defun emmanuel/prelude-copy-file-name-to-clipboard ()
