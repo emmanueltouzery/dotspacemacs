@@ -178,6 +178,8 @@ layers configuration."
   ;; (for instance editing CSV files)
   ;; http://vserver1.cscs.lsa.umich.edu/~rlr/Misc/emacs_tabs.htm
   (define-key text-mode-map (kbd "TAB") 'self-insert-command)
+
+  (setq vc-follow-symlinks t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
