@@ -22,6 +22,12 @@
   "Initialization function.
 This function is called at the very startup of Spacemacs initialization
 before layers configuration."
+
+  ;; without those two I get toolbar+scrollbar in emacsclient,
+  ;; but not plain emacs.
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
