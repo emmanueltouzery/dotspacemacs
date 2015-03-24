@@ -192,6 +192,10 @@ layers configuration."
   (setq vc-follow-symlinks t)
   (setq git-gutter-fr:side 'left-fringe)
 
+  ; http://www.emacswiki.org/emacs/SavePlace
+  (require 'saveplace)
+  (setq-default save-place t)
+
   ;; http://stackoverflow.com/a/145359/516188
   (defun smart-beginning-of-line ()
     "Move point to first non-whitespace character or beginning-of-line.
