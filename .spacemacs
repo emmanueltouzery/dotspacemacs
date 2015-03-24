@@ -190,6 +190,7 @@ layers configuration."
   (define-key text-mode-map (kbd "TAB") 'self-insert-command)
 
   (setq vc-follow-symlinks t)
+  (setq git-gutter-fr:side 'left-fringe)
 
   ;; http://stackoverflow.com/a/145359/516188
   (defun smart-beginning-of-line ()
@@ -208,3 +209,6 @@ If point was already at that position, move point to beginning of line."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ '(flycheck-indication-mode (quote right-fringe))
+ )
