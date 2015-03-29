@@ -200,6 +200,7 @@ layers configuration."
   ;; I often commit outside of emacs using the command-line.
   ;; this is an attempt to force git gutter to update
   ;; the commit status everytime the window is focused in
+  (require 'git-gutter)
   (add-to-list 'git-gutter:update-hooks 'focus-in-hook)
 
   ;; http://stackoverflow.com/a/145359/516188
