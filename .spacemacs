@@ -203,6 +203,11 @@ layers configuration."
   (require 'git-gutter)
   (add-to-list 'git-gutter:update-hooks 'focus-in-hook)
 
+  ;; getting tired of the cache getting stale, because
+  ;; I'm running commands outside of emacs (copying files, pulling
+  ;; from git and so on). Performance still looks OK for now.
+  (setq projectile-enable-caching nil)
+
   ;; http://stackoverflow.com/a/145359/516188
   (defun smart-beginning-of-line ()
     "Move point to first non-whitespace character or beginning-of-line.
