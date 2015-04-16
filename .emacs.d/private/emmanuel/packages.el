@@ -23,9 +23,9 @@ which require an initialization must be listed explicitly in the list.")
 
 ;; For each package, define a function emmanuel/init-<package-emmanuel>
 ;;
-;; (defun emmanuel/init-my-package ()
-;;   "Initialize my package"
-;;   )
+(defun emmanuel/init-color-theme-sanityinc-tomorrow ()
+  "Initialize theme"
+  )
 ;;
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
