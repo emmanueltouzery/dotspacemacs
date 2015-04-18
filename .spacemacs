@@ -227,4 +227,7 @@ If point was already at that position, move point to beginning of line."
 ;; auto-generate custom variable definitions.
 (custom-set-variables
  '(flycheck-indication-mode (quote right-fringe))
+ '(haskell-indentation-ifte-offset 4)
+ '(haskell-indentation-layout-offset 4)
+ '(haskell-indentation-left-offset 4)
  )
