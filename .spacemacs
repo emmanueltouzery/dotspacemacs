@@ -208,6 +208,12 @@ layers configuration."
   ;; from git and so on). Performance still looks OK for now.
   (setq projectile-enable-caching nil)
 
+  ;; i want the line numbers in the modeline always!!!
+  ;; http://www.gnu.org/software/emacs/manual/html_node/emacs/Optional-Mode-Line.html
+  ;; http://emacs.stackexchange.com/a/3827/2592
+  (setq line-number-display-limit nil)
+  (setq line-number-display-limit-width most-positive-fixnum)
+
   ;; http://stackoverflow.com/a/145359/516188
   (defun smart-beginning-of-line ()
     "Move point to first non-whitespace character or beginning-of-line.
