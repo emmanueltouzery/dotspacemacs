@@ -212,7 +212,7 @@ layers configuration."
   ;; http://www.gnu.org/software/emacs/manual/html_node/emacs/Optional-Mode-Line.html
   ;; http://emacs.stackexchange.com/a/3827/2592
   (setq line-number-display-limit nil)
-  (setq line-number-display-limit-width most-positive-fixnum)
+  (setq line-number-display-limit-width 250000)
 
   ;; http://stackoverflow.com/a/145359/516188
   (defun smart-beginning-of-line ()
