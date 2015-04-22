@@ -194,7 +194,11 @@ layers configuration."
   ;; insert real tabs in text-mode
   ;; (for instance editing CSV files)
   ;; http://vserver1.cscs.lsa.umich.edu/~rlr/Misc/emacs_tabs.htm
+  ;; for some reason for text-mode it works better WITHOUT the eval-after-load
+  ;; and for csv-mode it works better WITH it...
   (define-key text-mode-map (kbd "TAB") 'self-insert-command)
+  (eval-after-load 'csv-mode
+    '(define-key csv-mode-map (kbd "TAB") 'self-insert-command))
 
   (setq vc-follow-symlinks t)
   (setq git-gutter-fr:side 'left-fringe)
