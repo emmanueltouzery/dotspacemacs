@@ -170,8 +170,14 @@ layers configuration."
 
   (setq evil-want-fine-undo nil)
 
+  ;; http://kalkanotel.com/emacs-24-untabify-on-save-for-everything-except-makefiles-i268813.htm
+  (defun delete-trailing-whitespace-unless-csv()
+    "Delete trailing whitespace except if the file is CSV"
+    (unless (derived-mode-p 'csv-mode)
+      (delete-trailing-whitespace))
+    )
   ;; Obliterate trailing whitespaces before saving
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace-unless-csv)
 
   ;; display tabs with a dark gray "."
   ;; then the tab itself.
@@ -217,9 +223,8 @@ layers configuration."
   ;; http://stackoverflow.com/a/145359/516188
   (defun smart-beginning-of-line ()
     "Move point to first non-whitespace character or beginning-of-line.
-
-Move point to the first non-whitespace character on this line.
-If point was already at that position, move point to beginning of line."
+     Move point to the first non-whitespace character on this line.
+     If point was already at that position, move point to beginning of line."
     (interactive) ; Use (interactive "^") in Emacs 23 to make shift-select work
     (let ((oldpos (point)))
       (back-to-indentation)
