@@ -218,6 +218,10 @@ layers configuration."
   ;; from git and so on). Performance still looks OK for now.
   (setq projectile-enable-caching nil)
 
+  ;; I want the word boundary to be at spaces, not also at _ or - depending on the major mode. Useful for "yaw", w/b and others.
+  ;; https://bitbucket.org/lyro/evil/wiki/Home
+  (add-hook 'after-change-major-mode-hook (lambda () (modify-syntax-entry ?_ "w")))
+
   ;; i want the line numbers in the modeline always!!!
   ;; http://www.gnu.org/software/emacs/manual/html_node/emacs/Optional-Mode-Line.html
   ;; http://emacs.stackexchange.com/a/3827/2592
