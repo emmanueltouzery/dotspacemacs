@@ -161,6 +161,7 @@ layers configuration."
     (flush-lines txt (point-min) (point-max))
     )
   (define-key evil-normal-state-map (kbd "<SPC>ov") 'emmanuel/flush-lines-ex)
+  (define-key evil-normal-state-map (kbd "<SPC>ow") 'delete-other-windows)
 
   ;; can't override C-x if only because of C-x b to list buffers.
   (require 'evil-numbers)
