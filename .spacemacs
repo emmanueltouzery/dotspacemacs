@@ -163,6 +163,12 @@ layers configuration."
   (define-key evil-normal-state-map (kbd "<SPC>ov") 'emmanuel/flush-lines-ex)
   (define-key evil-normal-state-map (kbd "<SPC>ow") 'delete-other-windows)
 
+  (defun copy-buffer ()
+    "Copy entire buffer to clipboard"
+    (interactive)
+    (clipboard-kill-ring-save (point-min) (point-max)))
+  (define-key evil-normal-state-map (kbd "<SPC>oy") 'copy-buffer)
+
   ;; can't override C-x if only because of C-x b to list buffers.
   (require 'evil-numbers)
   (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
