@@ -115,6 +115,11 @@ layers configuration."
   ;; if I don't say anything with emacs client i get the arrow...
   (setq powerline-default-separator 'wave)
 
+  ;; fill-column-indicator
+  (require 'fill-column-indicator)
+  (setq fci-rule-column 80)
+  (add-hook 'after-change-major-mode-hook 'fci-mode)
+
   (require 'auto-complete)
   (add-hook 'after-change-major-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
   (add-to-list 'auto-mode-alist '("\\.qml\\'" . js-mode))
