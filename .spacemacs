@@ -120,6 +120,48 @@ layers configuration."
   (setq fci-rule-column 80)
   (add-hook 'after-change-major-mode-hook 'fci-mode)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; fill-column-indicator has problems.
+  ;; workarounds => http://emacs.stackexchange.com/questions/147/how-can-i-get-a-ruler-at-column-80
+
+  ;; autocomplete workaround
+  (defun sanityinc/fci-enabled-p () (symbol-value 'fci-mode))
+
+  (defvar sanityinc/fci-mode-suppressed nil)
+  (make-variable-buffer-local 'sanityinc/fci-mode-suppressed)
+
+  (defadvice popup-create (before suppress-fci-mode activate)
+    "Suspend fci-mode while popups are visible"
+    (let ((fci-enabled (sanityinc/fci-enabled-p)))
+      (when fci-enabled
+        (setq sanityinc/fci-mode-suppressed fci-enabled)
+        (turn-off-fci-mode))))
+
+  (defadvice popup-delete (after restore-fci-mode activate)
+    "Restore fci-mode when all popups have closed"
+    (when (and sanityinc/fci-mode-suppressed
+               (null popup-instances))
+      (setq sanityinc/fci-mode-suppressed nil)
+      (turn-on-fci-mode)))
+
+  ;; company-mode workaround
+  (defvar-local company-fci-mode-on-p nil)
+
+  (defun company-turn-off-fci (&rest ignore)
+    (when (boundp 'fci-mode)
+      (setq company-fci-mode-on-p fci-mode)
+      (when fci-mode (fci-mode -1))))
+
+  (defun company-maybe-turn-on-fci (&rest ignore)
+    (when company-fci-mode-on-p (fci-mode 1)))
+
+  (add-hook 'company-completion-started-hook 'company-turn-off-fci)
+  (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
+  (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
+
+  ;; end fill-column-indicator workarounds
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
   (require 'auto-complete)
   (add-hook 'after-change-major-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
   (add-to-list 'auto-mode-alist '("\\.qml\\'" . js-mode))
