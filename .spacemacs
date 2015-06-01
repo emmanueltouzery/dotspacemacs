@@ -122,7 +122,13 @@ layers configuration."
   ;; restore the default rule color from the tomorrow-night theme,
   ;; I find the one spacemacs sets up ugly.
   (setq fci-rule-color "#373b41")
-  (add-hook 'after-change-major-mode-hook 'turn-on-fci-mode)
+
+  ;; enable fill-column-indicator for all major modes
+  ;; except web-mode where it's sadly currently buggy:
+  ;; https://github.com/alpaker/Fill-Column-Indicator/issues/46
+  (add-hook 'after-change-major-mode-hook
+            (lambda () (if (string= major-mode "web-mode")
+                (turn-off-fci-mode) (turn-on-fci-mode))))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; fill-column-indicator has problems.
