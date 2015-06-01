@@ -11,7 +11,9 @@
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    ;; for the csv layer must install https://github.com/jb55/spacemacs-csv
-   dotspacemacs-configuration-layers '(auto-completion syntax-checking haskell javascript emmanuel git html markdown evil-snipe csv)
+   dotspacemacs-configuration-layers
+   '(auto-completion syntax-checking haskell javascript emmanuel git html
+                     markdown evil-snipe csv emacs-lisp shell)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -116,9 +118,11 @@ layers configuration."
   (setq powerline-default-separator 'wave)
 
   ;; fill-column-indicator
-  (require 'fill-column-indicator)
-  (setq fci-rule-column 80)
-  (add-hook 'after-change-major-mode-hook 'fci-mode)
+
+  ;; restore the default rule color from the tomorrow-night theme,
+  ;; I find the one spacemacs sets up ugly.
+  (setq fci-rule-color "#373b41")
+  (add-hook 'after-change-major-mode-hook 'turn-on-fci-mode)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; fill-column-indicator has problems.

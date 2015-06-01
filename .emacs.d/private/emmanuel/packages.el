@@ -10,16 +10,13 @@
 ;;
 ;;; License: GPLv3
 
-(defvar emmanuel-packages
+(setq emmanuel-packages
   '(
     ;; package emmanuels go here
     color-theme-sanityinc-tomorrow
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
-(defvar emmanuel-excluded-packages '()
-  "List of packages to exclude.")
+(setq emmanuel-excluded-packages '())
 
 ;; For each package, define a function emmanuel/init-<package-emmanuel>
 ;;

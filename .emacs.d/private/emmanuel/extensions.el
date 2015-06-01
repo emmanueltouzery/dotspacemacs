@@ -10,17 +10,15 @@
 ;;
 ;;; License: GPLv3
 
-(defvar emmanuel-pre-extensions
+(setq emmanuel-pre-extensions
   '(
     ;; pre extension emmanuels go here
-    )
-  "List of all extensions to load before the packages.")
+    ))
 
-(defvar emmanuel-post-extensions
+(setq emmanuel-post-extensions
   '(
     ;; post extension emmanuels go here
-    )
-  "List of all extensions to load after the packages.")
+    ))
 
 ;; For each extension, define a function emmanuel/init-<extension-emmanuel>
 ;;
