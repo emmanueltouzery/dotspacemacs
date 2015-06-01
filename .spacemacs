@@ -117,6 +117,9 @@ layers configuration."
   ;; if I don't say anything with emacs client i get the arrow...
   (setq powerline-default-separator 'wave)
 
+  ;; show trailing whitespace (and in a way compatible with fill-column-indicator)
+  (setq whitespace-style '(face trailing))
+
   ;; fill-column-indicator
 
   ;; restore the default rule color from the tomorrow-night theme,
