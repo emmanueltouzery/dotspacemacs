@@ -315,6 +315,13 @@ buffer is not visiting a file."
            (beginning-of-line))))
   (global-set-key [home] 'smart-beginning-of-line)
 
+  ;; autocompletion tuning, see
+  ;; https://github.com/syl20bnr/spacemacs/tree/master/contrib/auto-completion
+  (setq-default dotspacemacs-configuration-layers
+                '(auto-completion :variables
+                                  auto-completion-enable-help-tooltip t))
+
+  (global-company-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
