@@ -26,6 +26,10 @@
 This function is called at the very startup of Spacemacs initialization
 before layers configuration."
 
+  ;; wider default window
+  ;; http://stackoverflow.com/a/12334932/516188
+  (add-to-list 'default-frame-alist '(width . 100))
+
   ;; without those two I get toolbar+scrollbar in emacsclient,
   ;; but not plain emacs.
   (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -243,6 +247,7 @@ buffer is not visiting a file."
   (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
   (define-key evil-normal-state-map (kbd "gw") 'transpose-words)
 
+  ;; undo boundary at normal mode entry/exit
   (setq evil-want-fine-undo nil)
 
   ;; http://kalkanotel.com/emacs-24-untabify-on-save-for-everything-except-makefiles-i268813.htm
