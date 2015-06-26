@@ -241,6 +241,10 @@ buffer is not visiting a file."
       (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
   (define-key evil-normal-state-map (kbd "<SPC>or") 'sudo-edit)
 
+  ;; http://stackoverflow.com/a/20137832/516188
+  (defun save-all () (interactive) (save-some-buffers t))
+  (define-key evil-normal-state-map (kbd "<SPC>oW") 'save-all)
+
   ;; can't override C-x if only because of C-x b to list buffers.
   (require 'evil-numbers)
   (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
