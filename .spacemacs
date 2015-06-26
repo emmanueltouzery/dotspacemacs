@@ -245,6 +245,13 @@ buffer is not visiting a file."
   (defun save-all () (interactive) (save-some-buffers t))
   (define-key evil-normal-state-map (kbd "<SPC>oW") 'save-all)
 
+  (defun gnome-open-directory ()
+    (interactive)
+    "gnome-opens the current directory."
+    (let ((process-connection-type nil))
+      (start-process "" nil "/usr/bin/gnome-open" default-directory)))
+    (define-key evil-normal-state-map (kbd "<SPC>od") 'gnome-open-directory)
+
   ;; can't override C-x if only because of C-x b to list buffers.
   (require 'evil-numbers)
   (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
