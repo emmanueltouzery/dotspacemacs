@@ -209,7 +209,14 @@ layers configuration."
   (define-key evil-normal-state-map (kbd "<SPC>os") 'emmanuel/open-shell)
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
-  (define-key evil-normal-state-map (kbd "<SPC>oF") 'delete-frame)
+
+  ;; http://emacs.stackexchange.com/questions/13485
+  (defun delete-frame-or-kill-emacs ()
+    "Delete the selected frame.  If the last one, kill Emacs."
+    (interactive)
+    (condition-case nil (delete-frame) (error (save-buffers-kill-terminal))))
+  (define-key evil-normal-state-map (kbd "<SPC>oF") 'delete-frame-or-kill-emacs)
+
   (define-key evil-normal-state-map (kbd "<SPC>ou") 'browse-url)
 
   (defun emmanuel/keep-lines-ex (txt)
