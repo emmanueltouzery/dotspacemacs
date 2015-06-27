@@ -209,6 +209,7 @@ layers configuration."
   (define-key evil-normal-state-map (kbd "<SPC>os") 'emmanuel/open-shell)
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
+  (define-key evil-normal-state-map (kbd "<SPC>oF") 'delete-frame)
   (define-key evil-normal-state-map (kbd "<SPC>ou") 'browse-url)
 
   (defun emmanuel/keep-lines-ex (txt)
