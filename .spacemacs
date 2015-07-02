@@ -303,6 +303,9 @@ buffer is not visiting a file."
   (setq diff-hl-side 'left)
   ;; https://github.com/syl20bnr/spacemacs/issues/2180
   (diff-hl-margin-mode 0)
+  ;; hopefully update the git modifications display in the
+  ;; fringe if I commit outside of emacs.
+  (add-hook 'focus-out-hook (lambda () (diff-hl-update)))
 
   ; http://www.emacswiki.org/emacs/SavePlace
   (require 'saveplace)
