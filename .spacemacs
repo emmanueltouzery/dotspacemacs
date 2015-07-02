@@ -13,7 +13,7 @@
    ;; for the csv layer must install https://github.com/jb55/spacemacs-csv
    dotspacemacs-configuration-layers
    '(auto-completion syntax-checking haskell javascript emmanuel git html
-                     markdown evil-snipe csv emacs-lisp shell)
+                     markdown evil-snipe csv emacs-lisp shell version-control)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -300,17 +300,13 @@ buffer is not visiting a file."
     '(define-key csv-mode-map (kbd "TAB") 'self-insert-command))
 
   (setq vc-follow-symlinks t)
-  (setq git-gutter-fr:side 'left-fringe)
+  (setq diff-hl-side 'left)
+  ;; https://github.com/syl20bnr/spacemacs/issues/2180
+  (diff-hl-margin-mode 0)
 
   ; http://www.emacswiki.org/emacs/SavePlace
   (require 'saveplace)
   (setq-default save-place t)
-
-  ;; I often commit outside of emacs using the command-line.
-  ;; this is an attempt to force git gutter to update
-  ;; the commit status everytime the window is focused in
-  (require 'git-gutter)
-  (add-to-list 'git-gutter:update-hooks 'focus-in-hook)
 
   ;; getting tired of the cache getting stale, because
   ;; I'm running commands outside of emacs (copying files, pulling
