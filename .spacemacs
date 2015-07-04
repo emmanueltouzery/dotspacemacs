@@ -305,7 +305,7 @@ buffer is not visiting a file."
   (diff-hl-margin-mode 0)
   ;; hopefully update the git modifications display in the
   ;; fringe if I commit outside of emacs.
-  (add-hook 'focus-out-hook (lambda () (diff-hl-update)))
+  (add-hook 'focus-in-hook (lambda () (diff-hl-update)))
 
   ; http://www.emacswiki.org/emacs/SavePlace
   (require 'saveplace)
