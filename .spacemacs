@@ -13,7 +13,8 @@
    ;; for the csv layer must install https://github.com/jb55/spacemacs-csv
    dotspacemacs-configuration-layers
    '(auto-completion syntax-checking haskell javascript emmanuel git html
-                     markdown evil-snipe csv emacs-lisp shell version-control)
+                     markdown evil-snipe csv emacs-lisp shell version-control
+                     windows-scripts)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
