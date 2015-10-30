@@ -291,6 +291,9 @@ buffer is not visiting a file."
   (add-hook 'font-lock-mode-hook
             (lambda () (font-lock-add-keywords nil my-extra-keywords)))
 
+  ;; http://emacs.stackexchange.com/questions/17754/insert-word-under-cursor-in-projectile-search
+  (with-eval-after-load 'helm (define-key helm-map (kbd "C-w") 'next-history-element))
+
   ;; insert real tabs in text-mode
   ;; (for instance editing CSV files)
   ;; http://vserver1.cscs.lsa.umich.edu/~rlr/Misc/emacs_tabs.htm
