@@ -371,6 +371,35 @@ buffer is not visiting a file."
            (beginning-of-line))))
   (global-set-key [home] 'smart-beginning-of-line)
 
+  ;; get flyway to shut up about this warning,
+  ;; coming up all the time with the flyway for haskell.
+  ;; https://raw.githubusercontent.com/flycheck/flycheck/master/flycheck.el
+
+(defun flycheck-finish-checker-process-no-suspicious
+    (checker exit-status files output callback)
+  "Finish a checker process from CHECKER with EXIT-STATUS.
+
+FILES is a list of files given as input to the checker.  OUTPUT
+is the output of the syntax checker.  CALLBACK is the status
+callback to use for reporting.
+
+Parse the OUTPUT and report an appropriate error status."
+  (let ((errors (flycheck-parse-output output checker (current-buffer))))
+    (funcall callback 'finished
+             ;; Fix error file names, by substituting them backwards from the
+             ;; temporaries
+             (mapcar (lambda (e) (flycheck-fix-error-filename e files))
+                     errors))))
+
+  (defun flycheck-ignore-errors (orig-func &rest args)
+    "Ignore flycheck errors"
+    (apply 'flycheck-finish-checker-process-no-suspicious args))
+
+  (advice-add 'flycheck-finish-checker-process :around
+              #'flycheck-ignore-errors)
+
+  ;; end get rid of flyway warning.
+
   ;; autocompletion tuning, see
   ;; https://github.com/syl20bnr/spacemacs/tree/master/contrib/auto-completion
   (setq-default dotspacemacs-configuration-layers
