@@ -407,13 +407,13 @@ Parse the OUTPUT and report an appropriate error status."
                                   auto-completion-enable-help-tooltip t))
 
   (global-company-mode)
-  )
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
+   ;; Do not write anything past this comment. This is where Emacs will
+   ;; auto-generate custom variable definitions.
 (custom-set-variables
  '(flycheck-indication-mode (quote right-fringe))
  '(haskell-indentation-ifte-offset 4)
  '(haskell-indentation-layout-offset 4)
  '(haskell-indentation-left-offset 4)
  )
+)
