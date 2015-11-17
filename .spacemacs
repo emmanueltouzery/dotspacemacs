@@ -417,6 +417,10 @@ Parse the OUTPUT and report an appropriate error status."
 (setq eclim-eclipse-dirs "/"
       eclim-executable "~/.eclipse/org.eclipse.platform_793567567_linux_gtk_x86_64/eclim")
 
+;; closer to company style guide for java code.
+;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Indenting-switch-statements.html
+(c-set-offset 'case-label '+)
+
    ;; Do not write anything past this comment. This is where Emacs will
    ;; auto-generate custom variable definitions.
 (custom-set-variables
