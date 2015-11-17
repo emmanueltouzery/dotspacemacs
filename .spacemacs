@@ -14,7 +14,7 @@
    dotspacemacs-configuration-layers
    '(auto-completion syntax-checking haskell javascript emmanuel git html
                      markdown evil-snipe csv emacs-lisp shell version-control
-                     windows-scripts)
+                     windows-scripts java)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -114,10 +114,16 @@ before layers configuration."
   ;; User initialization goes here
   )
 
-(defun dotspacemacs/config ()
-  "Configuration function.
+(defun dotspacemacs/user-init ()
+  "Initialization function for user code.
+It is called immediately after `dotspacemacs/init'.  You are free to put any
+user code."
+  )
+
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
-layers configuration."
+layers configuration. You are free to put any user code."
 
   ;; if I don't say anything with emacs client i get the arrow...
   (setq powerline-default-separator 'wave)
@@ -407,6 +413,9 @@ Parse the OUTPUT and report an appropriate error status."
                                   auto-completion-enable-help-tooltip t))
 
   (global-company-mode)
+
+(setq eclim-eclipse-dirs "/"
+      eclim-executable "~/.eclipse/org.eclipse.platform_793567567_linux_gtk_x86_64/eclim")
 
    ;; Do not write anything past this comment. This is where Emacs will
    ;; auto-generate custom variable definitions.
