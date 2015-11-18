@@ -439,24 +439,33 @@ Parse the OUTPUT and report an appropriate error status."
   ;; clean the current project, but with the linux-dev profile.
   (defun java-clean-linux ()
     (interactive)
-    (eclim--maven-execute "clean install -Plinux-dev clean install"))
+    (eclim--maven-execute " -Plinux-dev clean install"))
 
   (defun java-cur-package-name ()
     (mapconcat 'identity (cdr (-drop-while (lambda (str) (not (string= "java" str)))
      (split-string (file-name-directory buffer-file-name) "/"))) "."))
 
-  (defun java-test-file ()
+  (defun java-base-test-file (target)
     (interactive)
     (eclim--maven-execute (concat
                            "-Dtest="
                            (java-cur-package-name)
                            (file-name-base buffer-file-name)
-                          " -Plinux-dev,all-tests surefire:test")))
+                           " -Plinux-dev,all-tests "
+                           target)))
+
+  (defun java-clean-test-file ()
+    (interactive)
+    (java-base-test-file "clean test"))
+  (defun java-test-file ()
+    (interactive)
+    (java-base-test-file "test"))
 
   (evil-leader/set-key-for-mode 'java-mode
     "moC" 'java-clean-all
     "mocl" 'java-clean-linux
-    "motf" 'java-test-file)
+    "motf" 'java-test-file
+    "motF" 'java-clean-test-file)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; END JAVA STUFF FOR WORK
