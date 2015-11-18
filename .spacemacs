@@ -425,6 +425,10 @@ Parse the OUTPUT and report an appropriate error status."
   ;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Indenting-switch-statements.html
   (c-set-offset 'case-label '+)
 
+  ;; don't align arguments with the opening bracket.
+  ;; http://stackoverflow.com/a/6952408/516188
+  (c-set-offset 'arglist-intro '+)
+
   (require 'compile)
 
   ;; clean for the parent project.
