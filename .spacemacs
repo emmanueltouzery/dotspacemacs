@@ -381,21 +381,21 @@ buffer is not visiting a file."
   ;; coming up all the time with the flyway for haskell.
   ;; https://raw.githubusercontent.com/flycheck/flycheck/master/flycheck.el
 
-(defun flycheck-finish-checker-process-no-suspicious
-    (checker exit-status files output callback)
-  "Finish a checker process from CHECKER with EXIT-STATUS.
+  (defun flycheck-finish-checker-process-no-suspicious
+      (checker exit-status files output callback)
+    "Finish a checker process from CHECKER with EXIT-STATUS.
 
 FILES is a list of files given as input to the checker.  OUTPUT
 is the output of the syntax checker.  CALLBACK is the status
 callback to use for reporting.
 
 Parse the OUTPUT and report an appropriate error status."
-  (let ((errors (flycheck-parse-output output checker (current-buffer))))
-    (funcall callback 'finished
-             ;; Fix error file names, by substituting them backwards from the
-             ;; temporaries
-             (mapcar (lambda (e) (flycheck-fix-error-filename e files))
-                     errors))))
+    (let ((errors (flycheck-parse-output output checker (current-buffer))))
+      (funcall callback 'finished
+               ;; Fix error file names, by substituting them backwards from the
+               ;; temporaries
+               (mapcar (lambda (e) (flycheck-fix-error-filename e files))
+                       errors))))
 
   (defun flycheck-ignore-errors (orig-func &rest args)
     "Ignore flycheck errors"
@@ -414,19 +414,19 @@ Parse the OUTPUT and report an appropriate error status."
 
   (global-company-mode)
 
-(setq eclim-eclipse-dirs "/"
-      eclim-executable "~/.eclipse/org.eclipse.platform_793567567_linux_gtk_x86_64/eclim")
+  (setq eclim-eclipse-dirs "/"
+        eclim-executable "~/.eclipse/org.eclipse.platform_793567567_linux_gtk_x86_64/eclim")
 
-;; closer to company style guide for java code.
-;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Indenting-switch-statements.html
-(c-set-offset 'case-label '+)
+  ;; closer to company style guide for java code.
+  ;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Indenting-switch-statements.html
+  (c-set-offset 'case-label '+)
 
-   ;; Do not write anything past this comment. This is where Emacs will
-   ;; auto-generate custom variable definitions.
-(custom-set-variables
- '(flycheck-indication-mode (quote right-fringe))
- '(haskell-indentation-ifte-offset 4)
- '(haskell-indentation-layout-offset 4)
- '(haskell-indentation-left-offset 4)
- )
-)
+  ;; Do not write anything past this comment. This is where Emacs will
+  ;; auto-generate custom variable definitions.
+  (custom-set-variables
+   '(flycheck-indication-mode (quote right-fringe))
+   '(haskell-indentation-ifte-offset 4)
+   '(haskell-indentation-layout-offset 4)
+   '(haskell-indentation-left-offset 4)
+   )
+  )
