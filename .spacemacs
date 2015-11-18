@@ -445,14 +445,43 @@ Parse the OUTPUT and report an appropriate error status."
     (mapconcat 'identity (cdr (-drop-while (lambda (str) (not (string= "java" str)))
      (split-string (file-name-directory buffer-file-name) "/"))) "."))
 
+  ;; (eclim-package-and-class) ;; doesn't work, picks the first inner class
+  (defun java-cur-package-and-class ()
+    (java-cur-package-name)
+    (file-name-base buffer-file-name))
+
   (defun java-base-test-file (target)
     (interactive)
     (eclim--maven-execute (concat
                            "-Dtest="
-                           (java-cur-package-name)
-                           (file-name-base buffer-file-name)
+                           (java-cur-package-and-class)
                            " -Plinux-dev,all-tests "
                            target)))
+
+
+  ;; tests for java-cur-method-name
+  ;; private void createDistributionTestCheck(DistributionCreateDto createDto,
+  ;;                                                                DistributionDto distributionDto, CreateDistributionPrepare preparedData) {
+  ;;
+  ;; public void testCreate() throws Exception {
+
+  ;; emacs-eclim is supposed to have eclim-java-method-signature-at-point
+  ;; but it's not implemented.
+  (defun java-cur-method-name ()
+    (save-excursion (if (re-search-backward " \\(\\w+\\)(\\(.\\|\n\\)*)\\(.\\|\n\\)*{")
+                        (match-string-no-properties 1)
+                      ""))
+    )
+
+  (defun java-test-method ()
+    (interactive)
+    (eclim--maven-execute (concat
+                           "-Dtest="
+                           (java-cur-package-and-class)
+                           "#"
+                           (java-cur-method-name)
+                           " -Plinux-dev,all-tests test"
+                           )))
 
   (defun java-clean-test-file ()
     (interactive)
@@ -465,7 +494,8 @@ Parse the OUTPUT and report an appropriate error status."
     "moC" 'java-clean-all
     "mocl" 'java-clean-linux
     "motf" 'java-test-file
-    "motF" 'java-clean-test-file)
+    "motF" 'java-clean-test-file
+    "motm" 'java-test-method)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; END JAVA STUFF FOR WORK
