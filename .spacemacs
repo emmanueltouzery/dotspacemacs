@@ -414,12 +414,49 @@ Parse the OUTPUT and report an appropriate error status."
 
   (global-company-mode)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; JAVA STUFF FOR WORK
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
   (setq eclim-eclipse-dirs "/"
         eclim-executable "~/.eclipse/org.eclipse.platform_793567567_linux_gtk_x86_64/eclim")
 
   ;; closer to company style guide for java code.
   ;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Indenting-switch-statements.html
   (c-set-offset 'case-label '+)
+
+  (require 'compile)
+
+  ;; clean for the parent project.
+  (defun java-clean-all ()
+    (interactive)
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install"))
+
+  ;; clean the current project, but with the linux-dev profile.
+  (defun java-clean-linux ()
+    (interactive)
+    (eclim--maven-execute "clean install -Plinux-dev clean install"))
+
+  (defun java-cur-package-name ()
+    (mapconcat 'identity (cdr (-drop-while (lambda (str) (not (string= "java" str)))
+     (split-string (file-name-directory buffer-file-name) "/"))) "."))
+
+  (defun java-test-file ()
+    (interactive)
+    (eclim--maven-execute (concat
+                           "-Dtest="
+                           (java-cur-package-name)
+                           (file-name-base buffer-file-name)
+                          " -Plinux-dev,all-tests surefire:test")))
+
+  (evil-leader/set-key-for-mode 'java-mode
+    "moC" 'java-clean-all
+    "mocl" 'java-clean-linux
+    "motf" 'java-test-file)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; END JAVA STUFF FOR WORK
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; Do not write anything past this comment. This is where Emacs will
   ;; auto-generate custom variable definitions.
