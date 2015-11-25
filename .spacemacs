@@ -16,7 +16,9 @@
                      markdown evil-snipe csv emacs-lisp shell version-control
                      windows-scripts java)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   ;; the smartparens exclude is a workaround for https://github.com/syl20bnr/spacemacs/issues/3137
+   ;; present in 0.104.x
+   dotspacemacs-excluded-packages '(smartparens)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -413,6 +415,14 @@ Parse the OUTPUT and report an appropriate error status."
                                   auto-completion-enable-help-tooltip t))
 
   (global-company-mode)
+
+  ;; use web-mode to open XML files. nXML is a disaster to me.
+  (add-to-list 'auto-mode-alist '("\\.xml\\'" . web-mode))
+
+  ;; gray for html tags in web-mode by default? SERIOUSLY?
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (set-face-attribute 'web-mode-html-tag-face nil :weight 'bold :foreground "#81a2be")))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; JAVA STUFF FOR WORK
