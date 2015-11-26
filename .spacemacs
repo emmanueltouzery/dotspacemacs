@@ -453,12 +453,13 @@ Parse the OUTPUT and report an appropriate error status."
 
   (defun java-cur-package-name ()
     (mapconcat 'identity (cdr (-drop-while (lambda (str) (not (string= "java" str)))
-     (split-string (file-name-directory buffer-file-name) "/"))) "."))
+     (-butlast (split-string (file-name-directory buffer-file-name) "/")))) "."))
 
   ;; (eclim-package-and-class) ;; doesn't work, picks the first inner class
   (defun java-cur-package-and-class ()
-    (java-cur-package-name)
-    (file-name-base buffer-file-name))
+    (concat (java-cur-package-name)
+            "."
+            (file-name-base buffer-file-name)))
 
   (defun java-base-test-file (target)
     (interactive)
