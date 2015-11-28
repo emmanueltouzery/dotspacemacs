@@ -15,10 +15,7 @@
    '(auto-completion syntax-checking haskell javascript emmanuel git html
                      markdown evil-snipe csv emacs-lisp shell version-control
                      windows-scripts java)
-   ;; A list of packages and/or extensions that will not be install and loaded.
-   ;; the smartparens exclude is a workaround for https://github.com/syl20bnr/spacemacs/issues/3137
-   ;; present in 0.104.x
-   dotspacemacs-excluded-packages '(smartparens)
+   dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
