@@ -520,7 +520,7 @@ Parse the OUTPUT and report an appropriate error status."
            ;; TODO change this to list all packages in the app,
            ;; with option to type in, like ",ri"
            (read-string "Package: " (java-cur-package-name))
-           (ido-completing-read "Type?" '("class" "interface" "abstract" "enum" "@interface"))
+           (ido-completing-read "Type?" '("class" "interface" "abstract class" "enum" "@interface"))
            (read-string "Type name: ")))
      (let* ((rel-fname (concat (replace-regexp-in-string "\\." "/" package) "/" type-name ".java"))
             (abs-fname (concat (maven-project-root-folder) "/src/java/" main-test "/" rel-fname)))
