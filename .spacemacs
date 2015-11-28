@@ -453,15 +453,18 @@ Parse the OUTPUT and report an appropriate error status."
     (interactive)
     (eclim--maven-execute " -Plinux-dev clean install"))
 
+  (defun path-components ()
+    (split-string (file-name-directory buffer-file-name) "/"))
+
   (defun java-cur-package-name ()
     (mapconcat 'identity (cdr (-drop-while (lambda (str) (not (string= "java" str)))
-     (-butlast (split-string (file-name-directory buffer-file-name) "/")))) "."))
+     (-butlast (path-components)))) "."))
 
   (defun maven-project-root-folder ()
     (concat "/" (mapconcat 'identity
                (cdr (reverse (cdr (-drop-while
                           (lambda (str) (not (string= "src" str)))
-                          (reverse (split-string (file-name-directory buffer-file-name) "/")))))) "/"))
+                          (reverse (path-components)))))) "/"))
     )
 
   ;; (eclim-package-and-class) ;; doesn't work, picks the first inner class
