@@ -475,11 +475,12 @@ Parse the OUTPUT and report an appropriate error status."
 
   (defun java-base-test-file (target)
     (interactive)
-    (eclim--maven-execute (concat
-                           "-Dtest="
-                           (java-cur-package-and-class)
-                           " -Plinux-dev,all-tests "
-                           target)))
+    (eclim--maven-execute
+     (concat
+      "-Dtest="
+      (java-cur-package-and-class)
+      " -Plinux-dev,all-tests "
+      target)))
 
 
   ;; tests for java-cur-method-name
@@ -498,13 +499,13 @@ Parse the OUTPUT and report an appropriate error status."
 
   (defun java-test-method ()
     (interactive)
-    (eclim--maven-execute (concat
-                           "-Dtest="
-                           (java-cur-package-and-class)
-                           "#"
-                           (java-cur-method-name)
-                           " -Plinux-dev,all-tests test"
-                           )))
+    (eclim--maven-execute
+     (concat
+      "-Dtest="
+      (java-cur-package-and-class)
+      "#"
+      (java-cur-method-name)
+      " -Plinux-dev,all-tests test")))
 
   (defun java-clean-test-file ()
     (interactive)
