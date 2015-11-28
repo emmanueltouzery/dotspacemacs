@@ -443,6 +443,11 @@ Parse the OUTPUT and report an appropriate error status."
     (interactive)
     (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install"))
 
+  ;; clean for core
+  (defun java-clean-core ()
+    (interactive)
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/core/pom.xml clean install"))
+
   ;; clean the current project, but with the linux-dev profile.
   (defun java-clean-linux ()
     (interactive)
@@ -500,6 +505,7 @@ Parse the OUTPUT and report an appropriate error status."
 
   (evil-leader/set-key-for-mode 'java-mode
     "moC" 'java-clean-all
+    "moK" 'java-clean-core
     "mocl" 'java-clean-linux
     "motf" 'java-test-file
     "motF" 'java-clean-test-file
