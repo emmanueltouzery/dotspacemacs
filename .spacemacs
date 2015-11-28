@@ -457,6 +457,13 @@ Parse the OUTPUT and report an appropriate error status."
     (mapconcat 'identity (cdr (-drop-while (lambda (str) (not (string= "java" str)))
      (-butlast (split-string (file-name-directory buffer-file-name) "/")))) "."))
 
+  (defun maven-project-root-folder ()
+    (concat "/" (mapconcat 'identity
+               (cdr (reverse (cdr (-drop-while
+                          (lambda (str) (not (string= "src" str)))
+                          (reverse (split-string (file-name-directory buffer-file-name) "/")))))) "/"))
+    )
+
   ;; (eclim-package-and-class) ;; doesn't work, picks the first inner class
   (defun java-cur-package-and-class ()
     (concat (java-cur-package-name)
@@ -503,7 +510,22 @@ Parse the OUTPUT and report an appropriate error status."
     (interactive)
     (java-base-test-file "test"))
 
+  (defun java-create-type (main-test package type type-name)
+    (interactive
+     (list (ido-completing-read "Main or test file?" '("main" "test"))
+           ;; TODO change this to list all packages in the app,
+           ;; with option to type in, like ",ri"
+           (read-string "Package: " (java-cur-package-name))
+           (ido-completing-read "Type?" '("class" "interface" "abstract" "enum" "@interface"))
+           (read-string "Type name: ")))
+     (let* ((rel-fname (concat (replace-regexp-in-string "\\." "/" package) "/" type-name ".java"))
+            (abs-fname (concat (maven-project-root-folder) "/src/java/" main-test "/" rel-fname)))
+       (find-file abs-fname)
+       (insert (concat "package " package ";\n\npublic " type " " type-name " {\n\n}")))
+    )
+
   (evil-leader/set-key-for-mode 'java-mode
+    "moa" 'java-create-type
     "moC" 'java-clean-all
     "moK" 'java-clean-core
     "mocl" 'java-clean-linux
