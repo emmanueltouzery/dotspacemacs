@@ -514,6 +514,10 @@ Parse the OUTPUT and report an appropriate error status."
     (interactive)
     (java-base-test-file "test"))
 
+  (defun java-clean-test-all ()
+    (interactive)
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -Plinux-dev,all-tests clean install"))
+
   (defun java-create-type (main-test package type type-name)
     (interactive
      (list (ido-completing-read "Main or test file?" '("main" "test"))
@@ -533,6 +537,7 @@ Parse the OUTPUT and report an appropriate error status."
     "moC" 'java-clean-all
     "moK" 'java-clean-core
     "mocl" 'java-clean-linux
+    "motA" 'java-clean-test-all
     "motf" 'java-test-file
     "motF" 'java-clean-test-file
     "motm" 'java-test-method)
