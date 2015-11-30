@@ -488,11 +488,14 @@ Parse the OUTPUT and report an appropriate error status."
   ;;                                                                DistributionDto distributionDto, CreateDistributionPrepare preparedData) {
   ;;
   ;; public void testCreate() throws Exception {
+  ;;
+  ;; public void realFunction() throws Exception {
+  ;;   lambdaCall("bla", () -> {
 
   ;; emacs-eclim is supposed to have eclim-java-method-signature-at-point
   ;; but it's not implemented.
   (defun java-cur-method-name ()
-    (save-excursion (if (re-search-backward " \\(\\w+\\)(\\(.\\|\n\\)*)\\(.\\|\n\\)*{")
+    (save-excursion (if (re-search-backward "\\w+ \\(\\w+\\)(\\(.\\|\n\\)*)\\(.\\|\n\\)*{")
                         (match-string-no-properties 1)
                       ""))
     )
