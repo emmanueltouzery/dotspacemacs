@@ -441,17 +441,17 @@ Parse the OUTPUT and report an appropriate error status."
   ;; clean for the parent project.
   (defun java-clean-all ()
     (interactive)
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install"))
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install -DskipTests"))
 
   ;; clean for core
-  (defun java-clean-core ()
+  (defun java-clean-generic-deps ()
     (interactive)
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/core/pom.xml clean install"))
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install -pl :generic_tms -am -DskipTests"))
 
   ;; clean the current project, but with the linux-dev profile.
   (defun java-clean-linux ()
     (interactive)
-    (eclim--maven-execute " -Plinux-dev clean install"))
+    (eclim--maven-execute " -Plinux-dev clean install -DskipTests"))
 
   (defun path-components ()
     (split-string (file-name-directory buffer-file-name) "/"))
@@ -538,7 +538,7 @@ Parse the OUTPUT and report an appropriate error status."
   (evil-leader/set-key-for-mode 'java-mode
     "moa" 'java-create-type
     "moC" 'java-clean-all
-    "moK" 'java-clean-core
+    "moK" 'java-clean-generic-deps
     "mocl" 'java-clean-linux
     "motA" 'java-clean-test-all
     "motf" 'java-test-file
