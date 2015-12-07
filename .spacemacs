@@ -210,8 +210,7 @@ layers configuration. You are free to put any user code."
     "Split the window and open a shell in the new split"
     (interactive)
     (split-window-below-and-focus)
-    (eshell)
-    )
+    (eshell))
   (define-key evil-normal-state-map (kbd "<SPC>os") 'emmanuel/open-shell)
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
@@ -229,15 +228,13 @@ layers configuration. You are free to put any user code."
     "Same as keep-lines but operate on the whole buffer,
      not only after the cursor."
     (interactive "sEnter the text to grep for: ")
-    (keep-lines txt (point-min) (point-max))
-    )
+    (keep-lines txt (point-min) (point-max)))
   (define-key evil-normal-state-map (kbd "<SPC>og") 'emmanuel/keep-lines-ex)
   (defun emmanuel/flush-lines-ex (txt)
     "Same as flush-lines but operate on the whole buffer,
      not only after the cursor."
     (interactive "sEnter the text to grep for: ")
-    (flush-lines txt (point-min) (point-max))
-    )
+    (flush-lines txt (point-min) (point-max)))
   (define-key evil-normal-state-map (kbd "<SPC>ov") 'emmanuel/flush-lines-ex)
   (define-key evil-normal-state-map (kbd "<SPC>ow") 'delete-other-windows)
 
@@ -279,8 +276,7 @@ buffer is not visiting a file."
   (defun delete-trailing-whitespace-unless-csv()
     "Delete trailing whitespace except if the file is CSV"
     (unless (derived-mode-p 'csv-mode)
-      (delete-trailing-whitespace))
-    )
+      (delete-trailing-whitespace)))
   ;; Obliterate trailing whitespaces before saving
   (add-hook 'before-save-hook 'delete-trailing-whitespace-unless-csv)
 
@@ -464,8 +460,7 @@ Parse the OUTPUT and report an appropriate error status."
     (concat "/" (mapconcat 'identity
                (cdr (reverse (cdr (-drop-while
                           (lambda (str) (not (string= "src" str)))
-                          (reverse (path-components)))))) "/"))
-    )
+                          (reverse (path-components)))))) "/")))
 
   ;; (eclim-package-and-class) ;; doesn't work, picks the first inner class
   (defun java-cur-package-and-class ()
@@ -497,8 +492,7 @@ Parse the OUTPUT and report an appropriate error status."
   (defun java-cur-method-name ()
     (save-excursion (if (re-search-backward "\\w+ \\(\\w+\\)(\\(.\\|\n\\)*)\\(.\\|\n\\)*{")
                         (match-string-no-properties 1)
-                      ""))
-    )
+                      "")))
 
   (defun java-test-method ()
     (interactive)
@@ -532,8 +526,27 @@ Parse the OUTPUT and report an appropriate error status."
      (let* ((rel-fname (concat (replace-regexp-in-string "\\." "/" package) "/" type-name ".java"))
             (abs-fname (concat (maven-project-root-folder) "/src/" main-test "/java/" rel-fname)))
        (find-file abs-fname)
-       (insert (concat "package " package ";\n\npublic " type " " type-name " {\n\n}")))
-    )
+       (insert (concat "package " package ";\n\npublic " type " " type-name " {\n\n}"))))
+
+  (defun java-debug-attach ()
+      (interactive)
+      (jdb "jdb -attach 1044 -sourcepath/home/emmanuel/projects/bus/generic/generic_tms/src/main/java"))
+
+  ;; pasted from https://github.com/syl20bnr/spacemacs/pull/2554
+  ;; same as the md shortcuts in the set-key-from-mode.
+  (spacemacs|define-micro-state eclim
+    :doc "[b] break [r] run [n] next [s] step [c] cont [i] inspect [q] quit"
+    :disable-evil-leader t
+    :persistent t
+    :evil-leader-for-mode (java-mode . "md.")
+    :bindings
+    ("b" gud-break)
+    ("r" gud-run)
+    ("n" gud-next)
+    ("s" gud-step)
+    ("i" gud-print)
+    ("c" gud-cont)
+    ("q" nil :exit t))
 
   (evil-leader/set-key-for-mode 'java-mode
     "moa" 'java-create-type
@@ -543,7 +556,18 @@ Parse the OUTPUT and report an appropriate error status."
     "motA" 'java-clean-test-all
     "motf" 'java-test-file
     "motF" 'java-clean-test-file
-    "motm" 'java-test-method)
+    "motm" 'java-test-method
+    "mod" 'java-debug-attach
+    "mdb" 'gud-break
+    "mdc" 'gud-cont
+    "mdn" 'gud-next
+    "mdr" 'gud-run
+    "mds" 'gud-step
+    "mdf" 'gud-finish
+    "mdi" 'gud-print
+    "mdl" 'spacemacs/gud-locals
+    "mdd" 'eclim-debug-test
+    )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; END JAVA STUFF FOR WORK
