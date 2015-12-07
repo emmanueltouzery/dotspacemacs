@@ -530,7 +530,7 @@ Parse the OUTPUT and report an appropriate error status."
            (ido-completing-read "Type?" '("class" "interface" "abstract class" "enum" "@interface"))
            (read-string "Type name: ")))
      (let* ((rel-fname (concat (replace-regexp-in-string "\\." "/" package) "/" type-name ".java"))
-            (abs-fname (concat (maven-project-root-folder) "/src/java/" main-test "/" rel-fname)))
+            (abs-fname (concat (maven-project-root-folder) "/src/" main-test "/java/" rel-fname)))
        (find-file abs-fname)
        (insert (concat "package " package ";\n\npublic " type " " type-name " {\n\n}")))
     )
