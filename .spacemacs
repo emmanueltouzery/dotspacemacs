@@ -530,7 +530,9 @@ Parse the OUTPUT and report an appropriate error status."
 
   (defun java-debug-attach ()
       (interactive)
-      (jdb "jdb -attach 1044 -sourcepath/home/emmanuel/projects/bus/generic/generic_tms/src/main/java"))
+      (jdb (concat "jdb -attach 1044 -sourcepath"
+                   "/home/emmanuel/projects/bus/generic/generic_tms/src/main/java"
+                   ":/home/emmanuel/projects/bus/generic/core/src/main/java")))
 
   ;; pasted from https://github.com/syl20bnr/spacemacs/pull/2554
   ;; same as the md shortcuts in the set-key-from-mode.
