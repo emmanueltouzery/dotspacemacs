@@ -504,6 +504,17 @@ Parse the OUTPUT and report an appropriate error status."
       (java-cur-method-name)
       " -Plinux-dev,all-tests test")))
 
+  (defun java-debug-test-method ()
+    (interactive)
+    (compile
+     (concat
+      "mvnDebug -f /home/emmanuel/projects/bus/generic/generic_tms/pom.xml " ;; TODO unhardcode project path.
+      "-Dtest="
+      (java-cur-package-and-class)
+      "#"
+      (java-cur-method-name)
+      " -Plinux-dev,all-tests test")))
+
   (defun java-clean-test-file ()
     (interactive)
     (java-base-test-file "clean test"))
@@ -528,11 +539,21 @@ Parse the OUTPUT and report an appropriate error status."
        (find-file abs-fname)
        (insert (concat "package " package ";\n\npublic " type " " type-name " {\n\n}"))))
 
+  (defun full-project-path (path)
+    (concat "/home/emmanuel/projects/bus/generic/" path))
+
+  (defun project-sources (path)
+    (list (concat path "/src/main/java") (concat path "/src/test/java")))
+
+  (require 'dash-functional)
+
   (defun java-debug-attach ()
       (interactive)
-      (jdb (concat "jdb -attach 1044 -sourcepath"
-                   "/home/emmanuel/projects/bus/generic/generic_tms/src/main/java"
-                   ":/home/emmanuel/projects/bus/generic/core/src/main/java")))
+      (let* ((folders (-mapcat
+                       (-compose 'project-sources 'full-project-path)
+                       '("generic_tms" "core")))
+             (sourcepath (mapconcat 'identity folders ":")))
+        (jdb (concat "jdb -attach 8000 -sourcepath" sourcepath))))
 
   ;; pasted from https://github.com/syl20bnr/spacemacs/pull/2554
   ;; same as the md shortcuts in the set-key-from-mode.
@@ -559,6 +580,7 @@ Parse the OUTPUT and report an appropriate error status."
     "motf" 'java-test-file
     "motF" 'java-clean-test-file
     "motm" 'java-test-method
+    "motM" 'java-debug-test-method
     "mod" 'java-debug-attach
     "mdb" 'gud-break
     "mdc" 'gud-cont
