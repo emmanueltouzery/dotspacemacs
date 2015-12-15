@@ -225,8 +225,7 @@ layers configuration. You are free to put any user code."
     "Split the window and open a shell in the new split"
     (interactive)
     (split-window-below-and-focus)
-    (eshell)
-    )
+    (eshell))
   (define-key evil-normal-state-map (kbd "<SPC>os") 'emmanuel/open-shell)
 
   (define-key evil-normal-state-map (kbd "<SPC>of") 'make-frame)
@@ -244,15 +243,13 @@ layers configuration. You are free to put any user code."
     "Same as keep-lines but operate on the whole buffer,
      not only after the cursor."
     (interactive "sEnter the text to grep for: ")
-    (keep-lines txt (point-min) (point-max))
-    )
+    (keep-lines txt (point-min) (point-max)))
   (define-key evil-normal-state-map (kbd "<SPC>og") 'emmanuel/keep-lines-ex)
   (defun emmanuel/flush-lines-ex (txt)
     "Same as flush-lines but operate on the whole buffer,
      not only after the cursor."
     (interactive "sEnter the text to grep for: ")
-    (flush-lines txt (point-min) (point-max))
-    )
+    (flush-lines txt (point-min) (point-max)))
   (define-key evil-normal-state-map (kbd "<SPC>ov") 'emmanuel/flush-lines-ex)
   (define-key evil-normal-state-map (kbd "<SPC>ow") 'delete-other-windows)
 
@@ -294,8 +291,7 @@ buffer is not visiting a file."
   (defun delete-trailing-whitespace-unless-csv()
     "Delete trailing whitespace except if the file is CSV"
     (unless (derived-mode-p 'csv-mode)
-      (delete-trailing-whitespace))
-    )
+      (delete-trailing-whitespace)))
   ;; Obliterate trailing whitespaces before saving
   (add-hook 'before-save-hook 'delete-trailing-whitespace-unless-csv)
 
@@ -456,17 +452,17 @@ Parse the OUTPUT and report an appropriate error status."
   ;; clean for the parent project.
   (defun java-clean-all ()
     (interactive)
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install"))
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install -DskipTests"))
 
   ;; clean for core
-  (defun java-clean-core ()
+  (defun java-clean-generic-deps ()
     (interactive)
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/core/pom.xml clean install"))
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install -pl :generic_tms -am -DskipTests"))
 
   ;; clean the current project, but with the linux-dev profile.
   (defun java-clean-linux ()
     (interactive)
-    (eclim--maven-execute " -Plinux-dev clean install"))
+    (eclim--maven-execute " -Plinux-dev clean install -DskipTests"))
 
   (defun path-components ()
     (split-string (file-name-directory buffer-file-name) "/"))
@@ -479,8 +475,7 @@ Parse the OUTPUT and report an appropriate error status."
     (concat "/" (mapconcat 'identity
                (cdr (reverse (cdr (-drop-while
                           (lambda (str) (not (string= "src" str)))
-                          (reverse (path-components)))))) "/"))
-    )
+                          (reverse (path-components)))))) "/")))
 
   ;; (eclim-package-and-class) ;; doesn't work, picks the first inner class
   (defun java-cur-package-and-class ()
@@ -503,19 +498,32 @@ Parse the OUTPUT and report an appropriate error status."
   ;;                                                                DistributionDto distributionDto, CreateDistributionPrepare preparedData) {
   ;;
   ;; public void testCreate() throws Exception {
+  ;;
+  ;; public void realFunction() throws Exception {
+  ;;   lambdaCall("bla", () -> {
 
   ;; emacs-eclim is supposed to have eclim-java-method-signature-at-point
   ;; but it's not implemented.
   (defun java-cur-method-name ()
-    (save-excursion (if (re-search-backward " \\(\\w+\\)(\\(.\\|\n\\)*)\\(.\\|\n\\)*{")
+    (save-excursion (if (re-search-backward "\\w+ \\(\\w+\\)(\\(.\\|\n\\)*)\\(.\\|\n\\)*{")
                         (match-string-no-properties 1)
-                      ""))
-    )
+                      "")))
 
   (defun java-test-method ()
     (interactive)
     (eclim--maven-execute
      (concat
+      "-Dtest="
+      (java-cur-package-and-class)
+      "#"
+      (java-cur-method-name)
+      " -Plinux-dev,all-tests test")))
+
+  (defun java-debug-test-method ()
+    (interactive)
+    (compile
+     (concat
+      "mvnDebug -f /home/emmanuel/projects/bus/generic/generic_tms/pom.xml " ;; TODO unhardcode project path.
       "-Dtest="
       (java-cur-package-and-class)
       "#"
@@ -529,6 +537,10 @@ Parse the OUTPUT and report an appropriate error status."
     (interactive)
     (java-base-test-file "test"))
 
+  (defun java-clean-test-all ()
+    (interactive)
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -Plinux-dev,all-tests clean install"))
+
   (defun java-create-type (main-test package type type-name)
     (interactive
      (list (ido-completing-read "Main or test file?" '("main" "test"))
@@ -538,19 +550,63 @@ Parse the OUTPUT and report an appropriate error status."
            (ido-completing-read "Type?" '("class" "interface" "abstract class" "enum" "@interface"))
            (read-string "Type name: ")))
      (let* ((rel-fname (concat (replace-regexp-in-string "\\." "/" package) "/" type-name ".java"))
-            (abs-fname (concat (maven-project-root-folder) "/src/java/" main-test "/" rel-fname)))
+            (abs-fname (concat (maven-project-root-folder) "/src/" main-test "/java/" rel-fname)))
        (find-file abs-fname)
-       (insert (concat "package " package ";\n\npublic " type " " type-name " {\n\n}")))
-    )
+       (insert (concat "package " package ";\n\npublic " type " " type-name " {\n\n}"))))
+
+  (defun full-project-path (path)
+    (concat "/home/emmanuel/projects/bus/generic/" path))
+
+  (defun project-sources (path)
+    (list (concat path "/src/main/java") (concat path "/src/test/java")))
+
+  (require 'dash-functional)
+
+  (defun java-debug-attach ()
+      (interactive)
+      (let* ((folders (-mapcat
+                       (-compose 'project-sources 'full-project-path)
+                       '("generic_tms" "core")))
+             (sourcepath (mapconcat 'identity folders ":")))
+        (jdb (concat "jdb -attach 8000 -sourcepath" sourcepath))))
+
+  ;; pasted from https://github.com/syl20bnr/spacemacs/pull/2554
+  ;; same as the md shortcuts in the set-key-from-mode.
+  (spacemacs|define-micro-state eclim
+    :doc "[b] break [r] run [n] next [s] step [c] cont [i] inspect [q] quit"
+    :disable-evil-leader t
+    :persistent t
+    :evil-leader-for-mode (java-mode . "md.")
+    :bindings
+    ("b" gud-break)
+    ("r" gud-run)
+    ("n" gud-next)
+    ("s" gud-step)
+    ("i" gud-print)
+    ("c" gud-cont)
+    ("q" nil :exit t))
 
   (evil-leader/set-key-for-mode 'java-mode
     "moa" 'java-create-type
     "moC" 'java-clean-all
-    "moK" 'java-clean-core
+    "moK" 'java-clean-generic-deps
     "mocl" 'java-clean-linux
+    "motA" 'java-clean-test-all
     "motf" 'java-test-file
     "motF" 'java-clean-test-file
-    "motm" 'java-test-method)
+    "motm" 'java-test-method
+    "motM" 'java-debug-test-method
+    "mod" 'java-debug-attach
+    "mdb" 'gud-break
+    "mdc" 'gud-cont
+    "mdn" 'gud-next
+    "mdr" 'gud-run
+    "mds" 'gud-step
+    "mdf" 'gud-finish
+    "mdi" 'gud-print
+    "mdl" 'spacemacs/gud-locals
+    "mdd" 'eclim-debug-test
+    )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; END JAVA STUFF FOR WORK
