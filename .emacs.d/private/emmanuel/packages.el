@@ -14,6 +14,9 @@
   '(
     ;; package emmanuels go here
     color-theme-sanityinc-tomorrow
+    planet-theme
+    subatomic-theme
+    material-theme
     vala-mode
     ))
 
@@ -22,6 +25,15 @@
 ;; For each package, define a function emmanuel/init-<package-emmanuel>
 ;;
 (defun emmanuel/init-color-theme-sanityinc-tomorrow ()
+  "Initialize theme"
+  )
+(defun emmanuel/init-planet-theme ()
+  "Initialize theme"
+  )
+(defun emmanuel/init-subatomic-theme ()
+  "Initialize theme"
+  )
+(defun emmanuel/init-material-theme ()
   "Initialize theme"
   )
 (defun emmanuel/init-vala-mode ()

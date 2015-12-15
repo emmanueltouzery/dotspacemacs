@@ -47,11 +47,18 @@ before layers configuration."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(sanityinc-tomorrow-night
+                         material
+                         planet
+                         sanityinc-tomorrow-bright
+                         sanityinc-tomorrow-eighties
+                         subatomic
                          monokai
                          solarized-light
                          solarized-dark
                          leuven
-                         zenburn)
+                         zenburn
+                         spacemacs-light
+                         spacemacs-dark)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -125,7 +132,7 @@ user code."
 layers configuration. You are free to put any user code."
 
   ;; if I don't say anything with emacs client i get the arrow...
-  (setq powerline-default-separator 'wave)
+  (setq powerline-default-separator 'nil)
 
   ;; show trailing whitespace (and in a way compatible with fill-column-indicator)
   (setq whitespace-style '(face trailing))
@@ -142,6 +149,14 @@ layers configuration. You are free to put any user code."
   (add-hook 'after-change-major-mode-hook
             (lambda () (if (string= major-mode "web-mode")
                 (turn-off-fci-mode) (turn-on-fci-mode))))
+
+  ;; the fringe having a different background color than the
+  ;; frame looks ugly to me, especially when you start splitting
+  ;; the window with several buffers
+  ;; http://emacs.stackexchange.com/a/5343/2592
+  (set-face-attribute 'fringe nil
+                      :foreground (face-foreground 'default)
+                      :background (face-background 'default))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; fill-column-indicator has problems.
