@@ -158,6 +158,16 @@ layers configuration. You are free to put any user code."
                       :foreground (face-foreground 'default)
                       :background (face-background 'default))
 
+  ;; the planet theme is overdoing the "highlight the current line" big time.
+  ;; (global-hl-line-mode 0)
+
+  ;; no box around the modeline. I find it ugly with the tomorrow night theme.
+  ;; http://stackoverflow.com/questions/16763393/emacs-24-mode-line-style
+  (set-face-attribute 'mode-line nil
+                      :overline nil
+                      :underline nil
+                      :box nil)
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; fill-column-indicator has problems.
   ;; workarounds => http://emacs.stackexchange.com/questions/147/how-can-i-get-a-ruler-at-column-80
