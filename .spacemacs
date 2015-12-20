@@ -442,6 +442,9 @@ Parse the OUTPUT and report an appropriate error status."
             (lambda ()
               (set-face-attribute 'web-mode-html-tag-face nil :weight 'bold :foreground "#81a2be")))
 
+  ;; tooltips disappear too fast. https://github.com/flycheck/flycheck-pos-tip
+  (setq flycheck-pos-tip-timeout 60)
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; JAVA STUFF FOR WORK
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
