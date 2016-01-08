@@ -359,12 +359,10 @@ buffer is not visiting a file."
     '(define-key csv-mode-map (kbd "TAB") 'self-insert-command))
 
   (setq vc-follow-symlinks t)
-  (setq diff-hl-side 'left)
-  ;; https://github.com/syl20bnr/spacemacs/issues/2180
-  (diff-hl-margin-mode 0)
-  ;; hopefully update the git modifications display in the
-  ;; fringe if I commit outside of emacs.
-  (add-hook 'focus-in-hook (lambda () (diff-hl-update)))
+
+  (require 'git-gutter-fringe+)
+  (setq git-gutter-fr+-side 'left-fringe)
+  (set-face-foreground 'git-gutter+-modified "orange")
 
   ; http://www.emacswiki.org/emacs/SavePlace
   (require 'saveplace)
@@ -628,7 +626,7 @@ Parse the OUTPUT and report an appropriate error status."
   ;; Do not write anything past this comment. This is where Emacs will
   ;; auto-generate custom variable definitions.
   (custom-set-variables
-   '(flycheck-indication-mode (quote right-fringe))
+   '(flycheck-indication-mode (quote left-fringe))
    '(haskell-indentation-ifte-offset 4)
    '(haskell-indentation-layout-offset 4)
    '(haskell-indentation-left-offset 4)
