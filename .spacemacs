@@ -131,9 +131,6 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
-  ;; if I don't say anything with emacs client i get the arrow...
-  (setq powerline-default-separator 'nil)
-
   ;; show trailing whitespace (and in a way compatible with fill-column-indicator)
   (setq whitespace-style '(face trailing))
 
@@ -150,13 +147,18 @@ layers configuration. You are free to put any user code."
             (lambda () (if (string= major-mode "web-mode")
                 (turn-off-fci-mode) (turn-on-fci-mode))))
 
-  ;; the fringe having a different background color than the
-  ;; frame looks ugly to me, especially when you start splitting
-  ;; the window with several buffers
-  ;; http://emacs.stackexchange.com/a/5343/2592
-  (set-face-attribute 'fringe nil
-                      :foreground (face-foreground 'default)
-                      :background (face-background 'default))
+  (spacemacs|do-after-display-system-init
+   ;; the fringe having a different background color than the
+   ;; frame looks ugly to me, especially when you start splitting
+   ;; the window with several buffers
+   ;; http://emacs.stackexchange.com/a/5343/2592
+   (set-face-attribute 'fringe nil
+                       :foreground (face-foreground 'default)
+                       :background (face-background 'default))
+
+   ;; if I don't say anything with emacs client i get the arrow...
+   (setq powerline-default-separator 'nil)
+  )
 
   ;; the planet theme is overdoing the "highlight the current line" big time.
   ;; (global-hl-line-mode 0)
