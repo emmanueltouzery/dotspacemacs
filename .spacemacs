@@ -365,6 +365,7 @@ buffer is not visiting a file."
   (require 'git-gutter-fringe+)
   (setq git-gutter-fr+-side 'left-fringe)
   (set-face-foreground 'git-gutter+-modified "orange")
+  (add-hook 'focus-in-hook (lambda () (git-gutter+-refresh)))
 
   ; http://www.emacswiki.org/emacs/SavePlace
   (require 'saveplace)
