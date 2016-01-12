@@ -600,26 +600,26 @@ Parse the OUTPUT and report an appropriate error status."
     ("c" gud-cont)
     ("q" nil :exit t))
 
-  (evil-leader/set-key-for-mode 'java-mode
-    "moa" 'java-create-type
-    "moC" 'java-clean-all
-    "moK" 'java-clean-generic-deps
-    "mocl" 'java-clean-linux
-    "motA" 'java-clean-test-all
-    "motf" 'java-test-file
-    "motF" 'java-clean-test-file
-    "motm" 'java-test-method
-    "motM" 'java-debug-test-method
-    "mod" 'java-debug-attach
-    "mdb" 'gud-break
-    "mdc" 'gud-cont
-    "mdn" 'gud-next
-    "mdr" 'gud-run
-    "mds" 'gud-step
-    "mdf" 'gud-finish
-    "mdi" 'gud-print
-    "mdl" 'spacemacs/gud-locals
-    "mdd" 'eclim-debug-test
+  (spacemacs/set-leader-keys-for-major-mode 'java-mode
+    "oa" 'java-create-type
+    "oC" 'java-clean-all
+    "oK" 'java-clean-generic-deps
+    "ocl" 'java-clean-linux
+    "otA" 'java-clean-test-all
+    "otf" 'java-test-file
+    "otF" 'java-clean-test-file
+    "otm" 'java-test-method
+    "otM" 'java-debug-test-method
+    "od" 'java-debug-attach
+    "db" 'gud-break
+    "dc" 'gud-cont
+    "dn" 'gud-next
+    "dr" 'gud-run
+    "ds" 'gud-step
+    "df" 'gud-finish
+    "di" 'gud-print
+    "dl" 'spacemacs/gud-locals
+    "dd" 'eclim-debug-test
     )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
