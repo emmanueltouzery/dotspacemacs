@@ -398,6 +398,10 @@ buffer is not visiting a file."
            (beginning-of-line))))
   (global-set-key [home] 'smart-beginning-of-line)
 
+  ;; make ghc-mod shut up
+  ;; https://github.com/DanielG/ghc-mod/issues/618
+  (setq ghc-report-errors nil)
+
   ;; get flyway to shut up about this warning,
   ;; coming up all the time with the flyway for haskell.
   ;; https://raw.githubusercontent.com/flycheck/flycheck/master/flycheck.el
