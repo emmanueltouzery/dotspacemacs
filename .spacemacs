@@ -450,6 +450,9 @@ Parse the OUTPUT and report an appropriate error status."
   ;; tooltips disappear too fast. https://github.com/flycheck/flycheck-pos-tip
   (setq flycheck-pos-tip-timeout 60)
 
+  ;; tune ace-window
+  (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; JAVA STUFF FOR WORK
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
