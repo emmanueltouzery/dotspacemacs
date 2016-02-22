@@ -158,17 +158,17 @@ layers configuration. You are free to put any user code."
 
    ;; if I don't say anything with emacs client i get the arrow...
    (setq powerline-default-separator 'nil)
+
+   ;; the planet theme is overdoing the "highlight the current line" big time.
+   ;; (global-hl-line-mode 0)
+
+   ;; no box around the modeline. I find it ugly with the tomorrow night theme.
+   ;; http://stackoverflow.com/questions/16763393/emacs-24-mode-line-style
+   (set-face-attribute 'mode-line nil
+                       :overline nil
+                       :underline nil
+                       :box nil)
   )
-
-  ;; the planet theme is overdoing the "highlight the current line" big time.
-  ;; (global-hl-line-mode 0)
-
-  ;; no box around the modeline. I find it ugly with the tomorrow night theme.
-  ;; http://stackoverflow.com/questions/16763393/emacs-24-mode-line-style
-  (set-face-attribute 'mode-line nil
-                      :overline nil
-                      :underline nil
-                      :box nil)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; fill-column-indicator has problems.
