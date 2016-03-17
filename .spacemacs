@@ -14,7 +14,7 @@
    dotspacemacs-configuration-layers
    '(auto-completion syntax-checking haskell javascript emmanuel git html
                      markdown evil-snipe csv emacs-lisp shell version-control
-                     windows-scripts java)
+                     windows-scripts java typescript org racket)
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
