@@ -560,7 +560,13 @@ Parse the OUTPUT and report an appropriate error status."
 
   (defun java-clean-test-all ()
     (interactive)
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -Plinux-dev,all-tests clean install"))
+    (compile "sh -c 'cd /home/emmanuel/projects/bus/generic/ims && sh ./copy_core.sh'")
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -Plinux-dev,all-tests,compile-ts,javaDto2ts  clean install"))
+
+  (defun java-clean-test-all-no-migrations ()
+    (interactive)
+    (compile "sh -c 'cd /home/emmanuel/projects/bus/generic/ims && sh ./copy_core.sh'")
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -Plinux-dev,all-tests,compile-ts,javaDto2ts  -Dall-tests.exclude=**/*MigrationTest.java clean install"))
 
   (defun java-create-type (main-test package type type-name)
     (interactive
@@ -613,6 +619,7 @@ Parse the OUTPUT and report an appropriate error status."
     "oK" 'java-clean-generic-deps
     "ocl" 'java-clean-linux
     "otA" 'java-clean-test-all
+    "ota" 'java-clean-test-all-no-migrations
     "otf" 'java-test-file
     "otF" 'java-clean-test-file
     "otm" 'java-test-method
