@@ -522,12 +522,16 @@ Parse the OUTPUT and report an appropriate error status."
   ;;
   ;; public void realFunction() throws Exception {
   ;;   lambdaCall("bla", () -> {
+  ;;
+  ;; new ClassName()
 
   ;; emacs-eclim is supposed to have eclim-java-method-signature-at-point
   ;; but it's not implemented.
   (defun java-cur-method-name ()
-    (save-excursion (if (re-search-backward "\\w+ \\(\\w+\\)(\\(.\\|\n\\)*)\\(.\\|\n\\)*{")
-                        (match-string-no-properties 1)
+    (save-excursion (if (re-search-backward " \\(\\w+\\) \\(\\w+\\)(\\(.\\|\n\\)*)\\(.\\|\n\\)*{")
+                        (if (string= "new" (match-string-no-properties 1))
+                            (java-cur-method-name)
+                          (match-string-no-properties 2))
                       "")))
 
   (defun java-test-method ()
