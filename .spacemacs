@@ -158,6 +158,7 @@ layers configuration. You are free to put any user code."
 
    ;; if I don't say anything with emacs client i get the arrow...
    (setq powerline-default-separator 'nil)
+   (spaceline-compile)
 
    ;; the planet theme is overdoing the "highlight the current line" big time.
    ;; (global-hl-line-mode 0)
