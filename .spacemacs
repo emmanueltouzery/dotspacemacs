@@ -481,6 +481,11 @@ Parse the OUTPUT and report an appropriate error status."
     (interactive)
     (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install -pl :generic_tms -am -DskipTests"))
 
+  ;; build for core
+  (defun java-generic-deps ()
+    (interactive)
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml install -pl :generic_tms -am -DskipTests"))
+
   ;; clean the current project, but with the linux-dev profile.
   (defun java-clean-linux ()
     (interactive)
@@ -621,6 +626,7 @@ Parse the OUTPUT and report an appropriate error status."
   (spacemacs/set-leader-keys-for-major-mode 'java-mode
     "oa" 'java-create-type
     "oC" 'java-clean-all
+    "ok" 'java-generic-deps
     "oK" 'java-clean-generic-deps
     "ocl" 'java-clean-linux
     "otA" 'java-clean-test-all
