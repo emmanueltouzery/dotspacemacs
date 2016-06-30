@@ -308,18 +308,6 @@ buffer is not visiting a file."
   ;; Obliterate trailing whitespaces before saving
   (add-hook 'before-save-hook 'delete-trailing-whitespace-unless-csv)
 
-  ;; display tabs with a dark gray "."
-  ;; then the tab itself.
-  ;; http://www.emacswiki.org/emacs/ShowWhiteSpace
-  (standard-display-ascii ?\t ".\t")
-  (defface extra-whitespace-face
-    '((t (:foreground "dim gray")))
-    "Used for tabs and such.")
-  (defvar my-extra-keywords
-    '(("\t" . 'extra-whitespace-face)))
-  (add-hook 'font-lock-mode-hook
-            (lambda () (font-lock-add-keywords nil my-extra-keywords)))
-
   ;; http://emacs.stackexchange.com/questions/17754/insert-word-under-cursor-in-projectile-search
   (with-eval-after-load 'helm (define-key helm-map (kbd "C-w") 'next-history-element))
 
