@@ -351,6 +351,9 @@ buffer is not visiting a file."
 
   (setq vc-follow-symlinks t)
 
+  ;; see http://emacs.stackexchange.com/questions/22740/disable-on-click-mail-sending-in-java-mode
+  (add-hook 'java-mode-hook (lambda () (goto-address-mode -1)))
+
   (require 'git-gutter-fringe+)
   (setq git-gutter-fr+-side 'left-fringe)
   (set-face-foreground 'git-gutter+-modified "orange")
