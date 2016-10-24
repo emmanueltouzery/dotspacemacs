@@ -608,6 +608,10 @@ Parse the OUTPUT and report an appropriate error status."
     (interactive)
     (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install -PjavaDto2ts,compile-ts -DskipTests"))
 
+  (defun java-build-all ()
+    (interactive)
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml install -PjavaDto2ts,compile-ts -DskipTests"))
+
   ;; clean for core
   (defun java-clean-generic-deps ()
     (interactive)
@@ -758,6 +762,7 @@ Parse the OUTPUT and report an appropriate error status."
   (spacemacs/set-leader-keys-for-major-mode 'java-mode
     "oa" 'java-create-type
     "oC" 'java-clean-all
+    "oA" 'java-build-all
     "ok" 'java-generic-deps
     "oK" 'java-clean-generic-deps
     "ocl" 'java-clean-linux
