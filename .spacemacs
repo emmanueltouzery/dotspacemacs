@@ -11,10 +11,13 @@
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    ;; for the csv layer must install https://github.com/jb55/spacemacs-csv
+   ;; autocompletion tuning, see
+   ;; https://github.com/syl20bnr/spacemacs/tree/master/contrib/auto-completion
    dotspacemacs-configuration-layers
-   '(auto-completion syntax-checking haskell javascript emmanuel git html
-                     markdown evil-snipe csv emacs-lisp shell version-control
-                     windows-scripts java typescript org racket intero)
+   '((auto-completion :variables auto-completion-enable-help-tooltip t)
+      syntax-checking haskell javascript emmanuel git html
+      markdown emacs-lisp shell version-control
+      windows-scripts java typescript org racket)
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -429,12 +432,6 @@ Parse the OUTPUT and report an appropriate error status."
               #'flycheck-ignore-errors)
 
   ;; end get rid of flyway warning.
-
-  ;; autocompletion tuning, see
-  ;; https://github.com/syl20bnr/spacemacs/tree/master/contrib/auto-completion
-  (setq-default dotspacemacs-configuration-layers
-                '(auto-completion :variables
-                                  auto-completion-enable-help-tooltip t))
 
   (global-company-mode)
 
