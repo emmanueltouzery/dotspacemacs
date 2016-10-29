@@ -588,7 +588,8 @@ Parse the OUTPUT and report an appropriate error status."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   (setq eclim-eclipse-dirs "/"
-        eclim-executable "~/.eclipse/org.eclipse.platform_793567567_linux_gtk_x86_64/eclim")
+        ;; eclim-executable "~/.eclipse/org.eclipse.platform_793567567_linux_gtk_x86_64/eclim")
+        eclim-executable "~/Downloads/eclipse/plugins/org.eclim_2.6.0/bin/eclim")
 
   ;; closer to company style guide for java code.
   ;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Indenting-switch-statements.html
