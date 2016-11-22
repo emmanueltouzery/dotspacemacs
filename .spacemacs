@@ -16,7 +16,8 @@
    dotspacemacs-configuration-layers
    '((auto-completion :variables auto-completion-enable-help-tooltip t)
       syntax-checking haskell javascript emmanuel git html
-      markdown emacs-lisp shell version-control
+      markdown emacs-lisp shell sql
+      (version-control :variables version-control-side 'left)
       windows-scripts java typescript org racket)
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
