@@ -565,7 +565,7 @@ buffer is not visiting a file."
 
   ;; don't align arguments with the opening bracket.
   ;; http://stackoverflow.com/a/6952408/516188
-  (c-set-offset 'arglist-intro '+)
+  (c-set-offset 'arglist-intro '++)
 
   (require 'compile)
 
