@@ -14,9 +14,10 @@
    ;; autocompletion tuning, see
    ;; https://github.com/syl20bnr/spacemacs/tree/master/contrib/auto-completion
    dotspacemacs-configuration-layers
-   '((auto-completion :variables auto-completion-enable-help-tooltip t)
+   '((
+      auto-completion :variables auto-completion-enable-help-tooltip t)
       syntax-checking haskell javascript emmanuel git html
-      markdown emacs-lisp shell sql
+      markdown emacs-lisp shell sql idris
       (version-control :variables version-control-side 'left)
       windows-scripts java typescript org racket)
    dotspacemacs-excluded-packages '()
@@ -120,7 +121,8 @@ before layers configuration."
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
-   dotspacemacs-default-package-repository nil)
+   dotspacemacs-default-package-repository nil
+   dotspacemacs-enable-paste-transient-state t)
   ;; User initialization goes here
   )
 
