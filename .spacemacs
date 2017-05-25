@@ -574,11 +574,11 @@ buffer is not visiting a file."
   ;; clean for the parent project.
   (defun java-clean-all ()
     (interactive)
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install -PjavaDto2ts,compile-ts -DskipTests"))
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml clean install -Pcompile-ts -DskipTests"))
 
   (defun java-build-all ()
     (interactive)
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml install -PjavaDto2ts,compile-ts -DskipTests"))
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml install -Pcompile-ts -DskipTests"))
 
   ;; clean for core
   (defun java-clean-generic-deps ()
@@ -675,12 +675,12 @@ buffer is not visiting a file."
   (defun java-clean-test-all ()
     (interactive)
     (shell-command-to-string "sh -c 'cd /home/emmanuel/projects/bus/generic/ims && sh ./copy_core.sh'")
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -fae -Plinux-dev,all-tests,compile-ts,javaDto2ts  clean install"))
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -fae -Plinux-dev,all-tests,compile-ts  clean install"))
 
   (defun java-clean-test-all-no-migrations ()
     (interactive)
     (shell-command-to-string "sh -c 'cd /home/emmanuel/projects/bus/generic/ims && sh ./copy_core.sh'")
-    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -fae -Plinux-dev,all-tests,compile-ts,javaDto2ts  -Dall-tests.exclude=**/*MigrationTest.java,**/TripEngineTest.java,**/IdGeneratorTest.java,**/PerformanceEngineTest.java clean install"))
+    (compile "mvn -f /home/emmanuel/projects/bus/generic/pom.xml -fae -Plinux-dev,all-tests,compile-ts  -Dall-tests.exclude=**/*MigrationTest.java,**/TripEngineTest.java,**/IdGeneratorTest.java,**/PerformanceEngineTest.java clean install"))
 
   (defun java-create-type (main-test package type type-name)
     (interactive
