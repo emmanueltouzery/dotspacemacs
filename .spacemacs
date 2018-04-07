@@ -576,6 +576,9 @@ buffer is not visiting a file."
   (add-hook 'prog-mode-hook
             #'add-fira-code-symbol-keywords)
 
+  ;; https://www.emacswiki.org/emacs/DeadKeys
+  (require 'iso-transl)
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; JAVA STUFF FOR WORK
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
